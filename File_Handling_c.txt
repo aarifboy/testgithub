@@ -1,0 +1,32 @@
+
+#include<stdio.h>
+//_CRT_SECURE_NO_WARNINGS
+
+int main()
+{
+	//FILE *input_file;
+	//input_file = fopen("test.txt", "r");
+	//FILE *input_file = fopen("test.txt", "r");
+	char in_file[] = "test.txt";
+	FILE *input_file = fopen(in_file, "r");
+
+	//FILE *output_file = fopen("test.txt.out", "w");//w for write a for append
+	char out_file[] = "test.txt"".out";	
+	FILE *output_file = fopen(out_file, "w");//w for write a for append
+
+	char line[50];
+	for (int line_no = 1; fgets(line, sizeof(line), input_file) != NULL; ++line_no)
+	{
+		printf("LINE %d: %s", line_no, line);
+		fprintf(output_file, "LINE %d: %s", line_no, line);
+	}
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}
+
