@@ -1,0 +1,99 @@
+
+#include <iostream>    //for cout
+#include <fstream>     // for ofstream/ifstream
+#include <string>     //for << and getline
+//#include <list> //for lists
+#include <stack> //for stack  LIFO
+
+//struct List
+//{
+//	std::string data;
+//	List *next;
+//};
+
+int main()
+{
+	std::string in_file = "test.txt";
+	std::ifstream input_file(in_file.c_str());
+
+	std::string out_file = "test.txt.out";
+	std::ofstream output_file(out_file.c_str());
+
+	//List *begin, *elements, *node;
+	//elements = begin = node = NULL;
+
+	//std::list<std::string> elements;
+	std::stack<std::string> elements;
+
+	std::string line;
+	
+	for (; std::getline(input_file, line);)
+	{
+		//elements = new List;
+		//elements->data = line;
+		//elements->next = NULL;
+
+		////if (begin == NULL)
+		////{
+		////	begin = elements;
+		////	node = elements;
+		////}
+		////else
+		////{
+		////	node->next = elements;//equal to push_back()
+		////	node = node->next;
+		////}
+		//elements->next = begin;
+		//begin = elements;//equal to push_front()of list and push() of stack
+
+		//elements.push_back(line);
+		//elements.push_front(line);
+		elements.push(line);
+	}
+
+	//std::cout<<"Shows elements of Stack:"<<std::endl;
+	//for (;begin != NULL;)
+	//{
+	//	elements = begin;
+	//	std::cout<< elements->data<<std::endl;
+	//	output_file<< elements->data<<std::endl;
+	//	begin = begin->next;
+	//	delete elements;
+	//}
+
+	//std::cout<<"Shows elements of list:"<<std::endl;
+	//for (elements = begin; elements != NULL; elements = elements->next)
+	//{
+	//	std::cout << elements->data << std::endl;
+	//	output_file << elements->data << std::endl;
+	//}
+
+	std::cout<<"Shows elements of Stack:"<<std::endl;
+	for (;!elements.empty();)
+	{
+		//std::cout << elements.front() << std::endl;// for list
+		//output_file << elements.front() << std::endl;
+		//elements.pop_front();//for list 
+		std::cout << elements.top() << std::endl;// for stack
+		output_file << elements.top() << std::endl;
+		elements.pop();// for stack 
+	}
+
+	//std::cout<<"Shows elements of list:"<<std::endl;
+	//std::list<std::string>::iterator iter = elements.begin();
+	//for (; iter != elements.end(); ++iter)
+	//{
+	//	std::cout << (*iter) << std::endl;
+	//	output_file << (*iter) << std::endl;
+	//}
+
+	//delete elements;
+
+	if (input_file)
+	{
+		input_file.close();
+		output_file.close();
+	}
+	std::cin.get();
+	return 0;
+}

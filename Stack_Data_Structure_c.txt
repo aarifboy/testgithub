@@ -1,0 +1,71 @@
+
+#include<stdio.h>
+
+typedef struct List
+{
+	char *data;
+	struct List *next;
+}list;
+
+
+int main()
+{
+	char in_file[] = "test.txt";
+	FILE *input_file = fopen(in_file, "r");
+
+	char out_file[] = "test.txt.out";
+	FILE *output_file = fopen(out_file, "w");//w for write a for append
+
+	list *begin, *elements, *node;
+	elements = begin = node = NULL;
+
+	char line[50];
+
+	for (; fgets(line, sizeof(line), input_file) != NULL;)
+	{
+		elements = malloc(sizeof(list));
+		elements->data = malloc(strlen(line));//lenght of string which varies		
+		strcpy(elements->data, line);//this and above line are equal to strdup
+		elements->next = NULL;
+
+		//if (begin == NULL)
+		//{
+		//	begin = elements;
+		//	node = elements;
+		//}
+		//else
+		//{
+		//	node->next = elements;
+		//	node = node->next;
+		//}
+		elements->next = begin;
+		begin = elements;
+	}
+
+	printf("Shows elements of Stack:\n");
+	for (;begin != NULL;)
+	{
+		elements = begin;
+		fputs(elements->data, stdout);
+		fputs(elements->data, output_file);
+		begin = begin->next;
+		free(elements);
+	}
+
+	printf("Shows elements of list:\n");
+	for (elements = begin; elements != NULL; elements = elements->next)
+	{
+		printf("%s", elements->data);
+		fprintf(output_file, "%s", elements->data);
+	}
+
+	//free(elements);
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}
