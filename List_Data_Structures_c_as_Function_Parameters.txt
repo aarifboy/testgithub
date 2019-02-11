@@ -1,0 +1,118 @@
+
+#include<stdio.h>
+
+typedef struct List
+{
+	char *data;
+	struct List *next;
+}list;
+
+void pullout_contents(char *in_file, list **elements)
+//void pullout_contents(char in_file[], list **elements)
+{
+	FILE *input_file;
+	input_file = fopen(in_file, "r");
+
+	list *iter ;
+	list *node ;
+
+	char line[50];
+	for (; fgets(line, sizeof(line), input_file) != NULL;)
+	{
+		iter = malloc(sizeof(list));
+		iter->data = malloc(strlen(line));//lenght of string which varies		
+		strcpy(iter->data, line);//this and above line are equal to strdup
+		iter->next = NULL;
+
+		if (*elements == NULL)
+		{
+			node = *elements = iter;
+		}
+		else
+		{
+			node = node->next = iter;
+		}
+	}
+
+	fclose(input_file);
+}
+
+void show_contents(list *elements)
+{
+	list *iter;
+	for ( iter = elements; iter != NULL; iter = iter->next)
+	{
+		printf("%s", iter->data);
+	}
+}
+
+void pushin_contents(char *out_file, list *elements)
+//void pushin_contents(char out_file[], list *elements)
+{
+	FILE* output_file;
+	output_file = fopen(out_file, "w");//w for write 
+
+	list* iter;
+	for ( iter = elements; iter != NULL; iter = iter->next)
+	{
+		fprintf(output_file, iter->data);
+	}
+
+	fclose(output_file);
+}
+
+int main()
+{
+	char in_file[] = "test.txt";
+	char out_file[] = "test.txt.out";
+	//char *in_file = "test.txt";
+	//char *out_file = "test.txt.out";
+
+	//FILE *input_file = fopen(in_file, "r");//r for read
+	//FILE *output_file = fopen(out_file, "w");//w for write 
+
+	list *elements = NULL;
+	//list *iter =NULL;
+	//list *node = NULL;
+
+	//char line[25];
+	//for (; fgets(line, sizeof(line), input_file) != NULL;)
+	//{
+	//	iter = malloc(sizeof(list));
+	//	iter->data = malloc(strlen(line));//lenght of string which varies		
+	//	strcpy(iter->data, line);//this and above line are equal to strdup
+	//	iter->next = NULL;
+
+	//	if (elements == NULL)
+	//	{
+	//		node = elements = iter;
+	//	}
+	//	else
+	//	{
+	//		node = node->next = iter;
+	//	}
+	//}
+
+	pullout_contents (in_file, &elements);
+
+	show_contents(elements);
+
+	pushin_contents(out_file, elements);
+
+	//for (iter = elements; iter != NULL; iter = iter->next)
+	//{
+	//	//printf("%s", iter->data);
+	//	fprintf(output_file, "%s", iter->data);
+	//}
+
+	//free(iter);
+
+	//if (input_file)
+	//{
+	//	fclose(input_file);
+		//fclose(output_file);
+	//}
+	getch();
+	return 0;
+}
+

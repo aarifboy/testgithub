@@ -1,0 +1,73 @@
+
+#include<stdio.h>
+
+typedef struct File_element
+{
+	char line[25];
+}file_element;
+
+typedef struct List
+{
+	//char *data;
+	file_element *data;
+	struct List *next;
+}list;
+
+
+int main()
+{
+	char *in_file = "test.txt";
+	char *out_file = "test.txt.out";
+
+	FILE *input_file = fopen(in_file, "r");//r for read
+	FILE *output_file = fopen(out_file, "w");//w for write 
+
+	list *elements = NULL;
+	list *iter =NULL;
+	list *node = NULL;
+
+	char line[25];
+	for (; fgets(line, sizeof(line), input_file) != NULL;)
+	{
+		iter = malloc(sizeof(list));
+		//iter->data = malloc(strlen(line));//lenght of string which varies	
+		iter->data = malloc(sizeof(file_element));//size must be this 
+		//in case struct has more than one members
+
+		file_element element ;
+		*element.line = malloc(sizeof(file_element));//
+		strcpy(element.line, line);//
+
+		//strcpy(iter->data, line);//
+		*iter->data = element;//works
+		iter->next = NULL;
+
+		if (elements == NULL)
+		{
+			node = elements = iter;
+		}
+		else
+		{
+			node = node->next = iter;
+		}
+	}
+
+	for (iter= elements ; iter != NULL; iter = iter->next)
+	{
+		//printf("%s", iter->data);	
+		//fprintf(output_file, "%s", iter->data);
+		printf("%s", iter->data->line);
+		fprintf(output_file," %s", iter->data->line);
+	}
+
+
+	free(iter);
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}

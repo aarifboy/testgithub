@@ -1,0 +1,113 @@
+
+#include <iostream>    //for cout
+#include <fstream>     // for ofstream/ifstream
+#include <string>     //for << and getline
+#include <list> //for lists
+
+struct List
+{
+	std::string data;
+	List *next;
+};
+
+void pullout_contents(std::string in_file, List **elements)
+{
+	std::ifstream input_file(in_file.c_str());
+	List *iter = NULL;
+	List *node = NULL;
+
+	std::string line;
+	for (; std::getline(input_file, line);)
+	{
+		iter = new List;
+		iter->data = line;
+		iter->next = NULL;
+
+		if (*elements == NULL)
+		{
+			node = *elements = iter;
+		}
+		else
+		{
+			node = node->next = iter;
+		}
+	}
+
+	input_file.close();
+}
+
+void show_contents(List *elements)
+{
+	List * iter;
+	for (iter = elements; iter != NULL; iter = iter->next)
+	{
+		std::cout << iter->data << std::endl;
+	}
+}
+
+void pushin_contents(std::string out_file, List *elements)
+{
+	std::ofstream output_file(out_file.c_str());
+	//
+	List * iter;
+	for (iter = elements; iter != NULL; iter = iter->next)
+	{
+		output_file << iter->data << std::endl;
+	}
+
+	output_file.close();
+}
+
+
+int main()
+{
+	std::string in_file = "test.txt";
+	std::string out_file = "test.txt.out";
+
+	//std::ifstream input_file(in_file.c_str());
+	//std::ofstream output_file(out_file.c_str());
+
+	List *elements = NULL;
+	//List *iter = NULL;
+	//List *node = NULL;
+
+	//std::string line;
+	//for (; std::getline(input_file, line);)
+	//{	
+	//	iter = new List;
+	//	iter->data = line;
+	//	iter->next = NULL;
+
+	//	if (elements == NULL)
+	//	{
+	//		node = elements = iter;
+	//	}
+	//	else
+	//	{
+	//		node = node->next = iter;
+	//	}
+	//}
+
+	pullout_contents(in_file, &elements);
+
+	show_contents(elements);
+
+	pushin_contents(out_file, elements);
+
+	//for (iter = elements; iter != NULL; iter = iter->next)
+	//{
+	//	//std::cout << iter->data << std::endl;
+	//	output_file << iter->data << std::endl;
+	//}
+
+	//delete iter;
+
+	//if (input_file)
+	//{
+	//	input_file.close();
+	//	output_file.close();
+	//}
+	std::cin.get();
+	return 0;
+}
+

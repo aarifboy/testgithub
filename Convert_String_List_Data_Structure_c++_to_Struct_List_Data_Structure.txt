@@ -1,0 +1,85 @@
+
+#include <iostream>    //for cout
+#include <fstream>     // for ofstream/ifstream
+#include <string>     //for << and getline
+#include <list> //for lists
+
+struct file_element
+{
+	std::string line;
+};
+
+//struct List
+//{
+//	//std::string data;
+//	file_element data;
+//	List *next;
+//};
+
+
+int main()
+{
+	std::string in_file = "test.txt";
+	std::string out_file = "test.txt.out";
+
+	std::ifstream input_file(in_file.c_str());
+	std::ofstream output_file(out_file.c_str());
+
+	//List *elements = NULL;
+	//List *iter = NULL;
+	//List *node = NULL;
+
+	//std::list<std::string> elements;
+	std::list<file_element> elements;
+
+	std::string line;
+	for (; std::getline(input_file, line);)
+	{	
+		//iter = new List;
+		file_element element;
+		element.line = line;
+
+	//	//iter->data = line;
+	//	iter->data = element;
+	//	iter->next = NULL;
+
+	//	if (elements == NULL)
+	//	{
+	//		node = elements = iter;
+	//	}
+	//	else
+	//	{
+	//		node = node->next = iter;
+	//	}
+		//elements.push_back(line);
+		elements.push_back(element);
+	}
+
+	//for (iter = elements; iter != NULL; iter = iter->next)
+	//{
+	//	//std::cout << iter->data << std::endl;
+	//	//output_file << iter->data << std::endl;
+	//	std::cout << iter->data.line << std::endl;
+	//	output_file << iter->data.line << std::endl;
+	//}
+
+	std::list<file_element>::iterator iter = elements.begin();
+	//std::list<std::string>::iterator iter = elements.begin();
+	for (; iter != elements.end(); ++iter)
+	{
+		//std::cout << *iter << std::endl;
+		//output_file << *iter << std::endl;
+		std::cout << (*iter).line << std::endl;
+		output_file << (*iter).line << std::endl;
+	}
+
+	//delete iter;
+
+	if (input_file)
+	{
+		input_file.close();
+		output_file.close();
+	}
+	std::cin.get();
+	return 0;
+}

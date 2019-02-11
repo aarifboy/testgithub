@@ -1,0 +1,43 @@
+
+#include<stdio.h>
+//#include<string.h>
+#include<conio.h>
+
+//int main()
+int main(int argc, char *argv[])
+{
+	printf("There are %d arguments.\n", argc);
+	for (int i = 0; i != argc; ++i)
+	{
+		printf("%s\n", argv[i]);
+	}
+
+	//FILE *input_file = fopen("test.txt", "r");
+	//FILE *output_file = fopen("test.txt.out", "w");
+
+	char file[25] ;
+	//strcpy(file, "test.txt");
+	strcpy(file, argv[1]);
+	FILE *input_file = fopen(file, "r");
+
+	strcat(file, ".out");//output file name test.txt.out
+	FILE *output_file = fopen(file, "w");//w for write 
+
+	char line[25];
+	for (; fgets(line, sizeof(line), input_file) != NULL;)
+	{
+		printf("%s", line);
+		fprintf(output_file, "%s", line);
+	}
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	//getch();
+	_getch();
+	return 0;
+}
+
+
