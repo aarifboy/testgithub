@@ -1,0 +1,32 @@
+
+#include<stdio.h>
+
+int main()
+{
+	FILE *input_file = fopen("test.txt", "r");
+	FILE *output_file = fopen("test.txt.out", "w");
+
+	char line[25];
+	int line_no = 0;
+	int var1 = line_no;
+	char *var2 = line;
+	for (line_no = 1; fgets(line, sizeof(line), input_file) != NULL;++line_no)
+	{		
+		int *p_i = &var1;
+		char *p_s = &var2;
+		printf("%d : %s",line_no, line);
+		//printf("%p : %p\n",&line_no, &line);
+		printf("%p : %p\n", p_i, p_s);
+		fprintf(output_file, "%d : %s",line_no, line);
+		//fprintf(output_file, "%p : %p\n",&line_no, &line);
+		fprintf(output_file, "%p : %p\n", p_i, p_s);
+	}
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}

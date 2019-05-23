@@ -1,0 +1,35 @@
+
+#include <iostream>    //for cout
+#include <fstream>     // for ofstream/ifstream
+#include <string>     //for << and getline
+
+int main()
+{
+	std::ifstream input_file("test.txt");
+	std::ofstream output_file("test.txt.out");
+
+	std::string line;
+	int line_no = 0;
+	int var1 = line_no;
+	std::string var2 = line;
+	for (line_no = 1 ; std::getline(input_file, line);++line_no)
+	{
+		int *p_i = &var1;
+		std::string *p_s = &var2;
+		std::cout << line_no << " : " << line << std::endl;
+		//std::cout << &line_no << " : " << &line << std::endl;
+		std::cout << p_i << " : " << p_s << std::endl;
+		output_file << line_no << " : " << line << std::endl;
+		//output_file << &line_no << " : " << &line << std::endl;
+		output_file << p_i << " : " << p_s << std::endl;
+	}
+
+	if (input_file)
+	{
+		input_file.close();
+		output_file.close();
+	}
+	std::cin.get();
+	return 0;
+}
+
