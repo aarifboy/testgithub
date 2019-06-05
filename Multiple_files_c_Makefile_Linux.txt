@@ -1,0 +1,97 @@
+
+//This is one source file
+
+#include<stdio.h>
+#include<string.h>
+//#include "Header.h"
+
+void pullout_contents(char *in_file, char elements[][50]);
+void show_contents(const char elements[][50]);
+void pushin_contents(char out_file[], const char elements[][50]);
+
+int main()
+{
+	char in_file[] = "test.txt";
+
+	char out_file[] = "test.txt.out";
+
+	char elements[25][50];
+
+	pullout_contents(in_file, elements);
+
+	show_contents(elements);
+
+	pushin_contents(out_file, elements);
+
+	//getch();
+	return 0;
+}
+
+//This is another source file
+
+#include<stdio.h>
+#include<string.h>
+void pullout_contents(char *in_file, char elements[][50])
+{
+	FILE *input_file = fopen(in_file, "r");
+
+	char line[50];
+	for (int line_no = 1; fgets(line, sizeof(line), input_file) != NULL; ++line_no)
+	{
+		strcpy(elements[line_no], line);
+	}
+
+	fclose(input_file);
+}
+
+void show_contents(const char elements[][50])
+{
+	for (int line_no = 1; line_no <3; ++line_no)
+	{
+		printf("%s", elements[line_no]);
+	}
+}
+
+void pushin_contents(char out_file[], const char elements[][50])
+{
+	FILE* output_file = fopen(out_file, "w");//w for write a for append
+
+	for (int line_no = 1; line_no <3; ++line_no)
+	{
+		fprintf(output_file, "%s", elements[line_no]);
+	}
+
+	fclose(output_file);
+}
+
+# This is make file for c
+#all:
+
+#compile:
+#	gcc *.c -o main
+#	gcc main.c Program.c -o main
+
+#run:
+#	./main test.txt
+	
+
+CC=gcc
+CFLAGS=-Wall -g
+	
+all:compile
+
+compile:main.o Program.o
+
+#	gcc *.o -o main
+#	gcc -Wall -g main.o Program.o -o main
+	$(CC) $(CFLAGS) main.o Program.o -o main
+	
+main.o:main.c
+#	gcc -c main.c
+	$(CC) -c main.c
+Program.o:Program.c
+#	gcc -c Program.c
+	$(CC) -c Program.c
+
+clean:
+	rm *.o main test.txt.out
