@@ -1,0 +1,58 @@
+
+#include<stdio.h>
+#include<stdbool.h> // for bool functions
+
+bool pullout_contents(char *in_file, char elements[][50])
+{
+	FILE *input_file = fopen(in_file, "r");
+
+	char line[50];
+	for (int line_no = 1; fgets(line, sizeof(line), input_file) != NULL; ++line_no)
+	{
+		strcpy(elements[line_no], line);
+	}
+
+	fclose(input_file);
+}
+
+bool show_contents(char out[],const char elements[][50])
+//bool show_contents(const char elements[][50])
+{
+	for (int line_no = 1; line_no <3; ++line_no)
+	{
+		//printf("LINE %d: %s", line_no, elements[line_no]);
+		fprintf(out, "LINE %d: %s", line_no, elements[line_no]);
+	}
+}
+
+bool pushin_contents(char out_file[], const char elements[][50])
+{
+	FILE* output_file = fopen(out_file, "w");//w for write a for append
+
+	//for (int line_no = 1; line_no <3; ++line_no)
+	//{
+	//	fprintf(output_file, "LINE %d: %s", line_no, elements[line_no]);
+	//}
+	show_contents(output_file,elements);//polymorphism
+
+	fclose(output_file);
+}
+
+int main()
+{
+	char in_file[] = "test.txt";
+	char out_file[] = "test.txt.out";
+
+	char elements[25][50];//array of strings
+
+	pullout_contents(in_file, elements);
+
+	//show_contents(elements);
+	show_contents(stdout, elements);
+
+	pushin_contents(out_file, elements);
+
+	getch();
+	return 0;
+}
+
