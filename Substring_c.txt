@@ -1,0 +1,31 @@
+
+
+#include<stdio.h>
+int main()
+{
+	FILE *input_file = fopen("test.txt", "r");
+	FILE *output_file = fopen("test.txt.out","w");//w for write a for append
+
+	char line[25];
+	for (int line_no = 1; fgets(line, sizeof(line), input_file) != NULL; ++line_no)
+	{
+		for (size_t i = 0; i < strlen(line); ++i)// stops where strings on a line finish											
+		{
+			//printf("%c\n", line[i]);//char
+			//fprintf(output_file, "%c\n",line[i]);//char
+			//printf("%s\n", (char[sizeof(line)]) { line[i], 0 });//char to string
+			//fprintf( output_file,"%s\n", (char[sizeof(line)]) { line[i], 0 });
+			printf("%.*s\n", 1, line + i);//convert chars to substring
+			fprintf(output_file,"%.*s\n", 1, line + i);
+		}
+	}
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}
+
