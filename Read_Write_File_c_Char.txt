@@ -1,0 +1,39 @@
+
+#include<stdio.h>
+int main()
+{
+	FILE *input_file;
+	char in_file[] = "test.txt";//string
+	input_file = fopen(in_file, "r");
+	
+	FILE *output_file;
+	char out_file[] = "test.txt"".out";;
+	output_file = fopen(out_file, "w");//w for write a for append
+
+	int line;
+	//char line;
+
+	//for (; (line = fgetc(input_file)) != EOF;)
+	//{
+	//	//printf("%c\n", line);
+	//	//fprintf(output_file, " %c\n", line);
+	//	//printf("%s\n", (char[2]) { line, 0 });//convert char to string
+	//	//fprintf(output_file, " %s\n", (char[2]) { line, 0 });
+	//	printf("%s\n", (char[sizeof(line)]) { line, 0 });//convert int to string	
+	//	fprintf(output_file, " %s\n", (char[sizeof(line)]) { line, 0 });
+	//}
+
+	for (; (line = getc(input_file)) != EOF;)
+	{
+		printf("%c\n", line);
+		fprintf(output_file, " %c\n", line);
+	}
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}

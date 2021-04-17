@@ -1,0 +1,38 @@
+
+#include <iostream>    //for cout
+#include <fstream>     // for ofstream/ifstream
+#include <string>     //for << and getline
+int main()
+{
+	std::string in_file = "test.txt";
+	std::ifstream input_file(in_file);
+
+	in_file += ".out";
+	std::ofstream output_file(in_file);
+
+	char line;
+
+	//while (input_file >> std::skipws >> line)
+	////for (;input_file >> std::noskipws >> line;)
+	//{
+	//	//std::cout << line << std::endl; 
+	//	//output_file << line << std::endl;
+	//	std::cout << std::string(1, line)<<std::endl;
+	//	output_file << std::string(1, line)<<std::endl;
+	//}
+
+	for (; input_file.get(line);)
+	{
+		std::cout << line << std::endl;
+		output_file << line << std::endl;
+	}
+
+	if (input_file)
+	{
+		input_file.close();
+		output_file.close();
+	}
+
+	std::cin.get();
+	return 0;
+}
