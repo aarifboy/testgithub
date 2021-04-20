@@ -1,0 +1,70 @@
+
+#include<stdio.h>
+struct List
+{
+	char *data;
+	struct List *next;
+};
+typedef struct List list;
+
+int main()
+{	
+	FILE *input_file = fopen("test.txt", "r");
+	FILE *output_file = fopen("test.txt.out", "w");//w for write a for append
+
+	list *iter, *elements, *node;
+	elements = iter = node = NULL;
+
+	char line[25];
+
+	for (;fgets(line, sizeof(line), input_file)!= NULL;)
+	{
+		//iter = malloc(sizeof(list));
+		//iter->data = strdup(line);//
+		//iter->next = NULL;
+		//if (elements == NULL)
+		//{
+		//	node = elements = iter;
+		//}
+		//else
+		//{
+		//	node = node->next = iter;
+		//}
+
+		for (size_t i = 0; i < strlen(line); i++)//stops where line finishes
+		{
+			iter = malloc(sizeof(list));
+			iter->data = malloc(sizeof(char)); //added to use pointers 
+			*iter->data = line[i]; //use of pointer here
+			iter->data[1] = '\0';//convert char to string 
+			iter->next = NULL;
+			if (elements == NULL)
+			{
+				node = elements = iter;
+			}
+			else
+			{
+				node = node->next = iter;
+			}
+		}
+	}
+
+	for (iter = elements; iter; iter = iter->next)
+	{
+		printf("%s\n", iter->data); //for string output
+		fprintf(output_file, "%s\n", iter->data);//for string output
+		//printf("%c\n", *iter->data); //
+		//fprintf(output_file, "%c\n", *iter->data);//for string output	
+	}
+
+	free(iter);
+
+	if (input_file)
+	{
+		fclose(input_file);
+		fclose(output_file);
+	}
+	getch();
+	return 0;
+}
+
