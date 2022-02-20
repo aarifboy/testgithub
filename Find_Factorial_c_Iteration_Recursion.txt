@@ -1,0 +1,26 @@
+
+#include <stdio.h>
+int factorial(int n) {
+	int fact = 1; 
+	//for (int i = 1; i <= n; ++i) 
+	//{		
+	//	fact = fact*i;//fact *= i;
+	//}
+	if (n == 0)
+		return 1;//
+	else
+		fact = n * factorial(n - 1);//using recursion
+	return fact;
+}
+void main() {
+	int n, fact = 1;
+	printf("Enter an integer:\n");
+	scanf("%d", &n);
+	if (n < 0)
+		printf("Error! Factorial of a negative number doesn't exist.\n");
+	else {
+		fact = factorial(n);
+		printf("Factorial of %d = %d\n", n, fact);
+	}
+	getch();
+}

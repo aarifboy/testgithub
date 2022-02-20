@@ -1,0 +1,33 @@
+
+#include <iostream>    //for cout
+#include <conio.h>  //for _getch
+int factorial(int n) {
+	int fact = 1;
+	//for (int i = 1; i <= n; ++i)
+	//{
+	//	//fact *= i;
+	//	fact = fact*i;
+	//}
+
+	if (n == 0)
+		return 1;//
+	else
+		fact = n * factorial(n - 1);//using recursion
+
+	return fact;
+}
+
+int main() {
+	int n, fact = 1;
+	std::cout << "Enter an integer: " << std::endl;
+	std::cin >> n;
+	if (n < 0)
+		std::cout << "Error! Factorial of a negative number doesn't exist." << std::endl;
+	else {
+		fact = factorial(n);
+		std::cout << "Factorial of " << n << " = " << fact << std::endl;
+	}
+	_getch();
+	//system("pause");
+	return 0;
+}
